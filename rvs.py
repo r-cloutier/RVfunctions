@@ -1,11 +1,12 @@
-'''
-Write functions to compute useful quantities from RV and transit 
-model parameters.
-'''
 import numpy as np
 import compute_hz as ch
 from uncertainties import unumpy
 from scipy.interpolate import interp1d
+
+global G, Msun, Mearth, Rsun, Rearth, AU, pc
+G, Ms, Mearth = 6.67e-11, 1.98849925145e30, 6.04589804468e24
+Rsun, Rearth, AU, pc = 695500e3, 6371e3, 1.495978707e11, 3.08567758149137e16
+
 
 # Define conversion functions
 def days2sec(t):
@@ -17,29 +18,29 @@ def days2yrs(t):
 def yrs2days(t):
     return t*365.25
 def Msun2kg(m):
-    return m*1.98849925145e30
+    return m*Msun
 def kg2Msun(m):
-    return m/1.98849925145e30
+    return m/Msun
 def Mearth2kg(m):
-    return m*6.04589804468e24
+    return m*Mearth
 def kg2Mearth(m):
-    return m/6.04589804468e24
+    return m/Mearth
 def Rearth2m(r):
-    return r*6371e3
+    return r*Rearth
 def m2Rearth(r):
-    return r/6371e3
+    return r/Rearth
 def Rsun2m(r):
-    return r*695500e3
+    return r*Rsun
 def m2Rsun(r):
-    return r/695500e3
+    return r/Rsun
 def AU2m(r):
-    return r*1.495978707e11
+    return r*AU
 def m2AU(r):
-    return r/1.495978707e11
+    return r/AU
 def pc2m(r):
-    return r*3.08567758149137e16
+    return r*pc
 def m2pc(r):
-    return r/3.08567758149137e16 
+    return r/pc 
 
 
 def semimajoraxis(P, Ms, Mp):
