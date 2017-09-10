@@ -202,7 +202,7 @@ def is_Lagrangestable(Ps, Ms, mps, eccs):
     greenberg 06).
     mp_i = Mearth'''
     Ps, mps, eccs = np.array(Ps), np.array(mps), np.array(eccs)
-    smas = semimajoraxis(Ps, Ms, mps)
+    smas = AU2m(semimajoraxis(Ps, Ms, mps))
     stable = np.zeros(mps.size-1)
     for i in range(1, mps.size):
         mu1 = Mearth2kg(mps[i-1]) / Msun2kg(Ms)
