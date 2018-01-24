@@ -1,5 +1,4 @@
 import numpy as np
-import compute_hz as ch
 from uncertainties import unumpy
 from scipy.interpolate import interp1d
 
@@ -219,3 +218,16 @@ def is_Lagrangestable(Ps, Ms, mps, eccs):
         deltacrit = fint(RHS)
         stable[i-1] = True if delta >= 1.1*deltacrit else False
     return stable
+
+def sigma_depth(P, rp, Rs, Ms, b, N, Ttot, sig_phot):
+     '''Compute the expected uncertainty on the transit depth from a 
+     lightcurve with N measurements taken over Ttot days and with 
+     measurement uncertainty sig_phot.'''
+     delta = (Rearth(rp)/Rsun2m(Rs))**2
+     sma = AU2m(semimajoraxis(P, Ms, 0))
+     tau0 = P/(2*np.pi) * Rsun2m(Rs)/sma  # days
+     T = 2*tau0*np.sqrt(1-b*b)
+     Gamma = N/Ttot  # days^-1
+     Q = np.sqrt(Gamma*T) * delta / sig_phot
+     sig_delta = delta / Q
+     return sig_delta
